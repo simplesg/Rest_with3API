@@ -6,7 +6,6 @@ import main.dto.jira.SessionResponse;
 import main.dto.jira.SessionValue;
 import main.exception.EmptyFieldException;
 import main.service.jira.JiraService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static main.util.PageUri.CREATE_SESSION_URL;
-import static main.util.PageUri.GET_CURRENT_USER;
-import static main.util.PageUri.JIRA_BASE_URL;
+import static main.util.PageUri.*;
 
 @Service
 @RequiredArgsConstructor

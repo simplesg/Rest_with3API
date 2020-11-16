@@ -6,7 +6,9 @@ import main.service.jira.impl.ProjectServiceImplementation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,23 @@ public class ProjectController {
 
     @GetMapping(ALL)
     public ResponseEntity<String> getAllProjects() {
-        return ResponseEntity.ok("You currently assigned to the " +
-                                 projectServiceImplementation.getAllProjects().size() +
-                                 " projects");
+        try {
+
+
+            return ResponseEntity.ok("You currently assigned to the " +
+                    projectServiceImplementation.getAllProjects().size() +
+                    " projects");
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.badRequest().body("You don't have permission");
+        }
+    }
+
+    @GetMapping(GET_BY_ID_PROJECT)
+    public ResponseEntity<Project> getProjectById(@PathVariable String projectIdOrKey) {
+        try {
+            return ResponseEntity.ok(projectServiceImplementation.getProjectById(projectIdOrKey));
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
